@@ -64,9 +64,9 @@ minima:
 
 ---
 
-## Step 2: Create `about.md`
+## Step 2: Edit `about.md`
 
-In the `navigation/` folder, create `about.md` with this content:
+In the `navigation/` folder, edit `about.md` with content personalized to you:
 
 ```markdown
 ---
