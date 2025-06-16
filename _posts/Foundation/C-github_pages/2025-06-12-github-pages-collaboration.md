@@ -56,10 +56,9 @@ Pair programming is when two developers work together at one workstation — one
 
 #### Pair Program When…
 
-- Working on tricky features like auth or backend logic
+- Working on tricky features
 - Debugging something complex
 - Reviewing code before a big push
-
 
 ---
 
@@ -69,14 +68,104 @@ Version control is your safety net for team coding.
 
 ### Git Concepts to Know
 
-- **Branching**: Work independently without breaking main
-- **Pull requests**: Share and review changes before merging
-- **Commit messages**: Make them clear and specific (`feat: add navbar`, `fix: login redirect`)
-- **Conflict resolution**: Use VSCode’s merge tools and communicate often
+- **Branching**: Work independently without breaking main  
+  [Git Branching Basics](https://www.atlassian.com/git/tutorials/using-branches)  
+
+- **Pull requests**: Share and review changes before merging  
+  [About Pull Requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests)  
+
+- **Commit messages**: Make them clear and specific (`feat: add navbar`, `fix: login redirect`)  
+  [Writing Good Commit Messages](https://chris.beams.io/posts/git-commit/) *(third-party guide widely recommended)*  
+
+- **Conflict resolution**: Use VSCode’s merge tools and communicate often  
+  [Resolving a merge conflict using the command line](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts)  
 
 ### Tools to Use
 
-- **GitHub**: Push/pull, open issues, and assign tasks
-- **Kanban Boards**: for task tracking
-- **Commits**: Use them to verify team contributions (use GitHub Insights or terminal logs)
+- **GitHub**: Push/pull, open issues, and assign tasks  
+  [GitHub Docs - About GitHub](https://docs.github.com/en/get-started/quickstart/github-flow)  
+- **Kanban Boards**: for task tracking  
+  [GitHub Projects (Kanban)](https://docs.github.com/en/issues/organizing-your-work-with-project-boards)
 
+---
+
+ç
+## Collaborative Blog Post in about.md with VSCode Live Share
+
+### Purpose  
+Practice real-time collaboration by writing and styling a short blog post together about something you both have in common.
+
+### How It Works
+
+1. **Chat In Person First**  
+Talk to your partner about something you both enjoy — a favorite sport, hobby, subject, or interest.
+
+2. **Start a Live Share Session**  
+One partner starts VSCode Live Share and shares the invite link.
+
+3. **Open the `about.md` file together**
+
+4. **Write Together**  
+In the same file, write a short blog post (2-3 sentences) about the shared interest.
+
+5. **Add a Picture**  
+Include a relevant image in the `images/` folder and embed it with inline styles to adjust the size or layout.
+
+6. **Add Fun Styles**  
+Use inline CSS styles inside your markdown (e.g., colors, margins, borders) to make your post visually appealing.
+
+7. **Switch Roles**  
+One person can write content while the other styles, then swap.
+
+8. **Review Your Work Together**  
+Talk about what you added and how the styles improve the look.
+
+---
+
+### Example
+
+```markdown
+## Our Shared Passion: Basketball
+
+Basketball is an exciting game we both love. It’s fast-paced and helps us stay active.
+
+<img src="{{ site.baseurl }}/images/basketball.png" alt="Basketball" style="width:150px; border-radius: 10px; margin: 10px;">
+
+We enjoy playing and watching games, especially during the playoffs!
+```
+
+---
+
+## Quick Intro to CSS Styling
+
+CSS (Cascading Style Sheets) lets you control how your content looks — size, color, spacing, layout, and more!
+
+In this project, you’ll use **inline CSS**, which means writing style rules directly inside your HTML elements.
+
+### Syntax Example
+
+```html
+<img src="{{ site.baseurl }}/images/baking.png" alt="Baking" style="width:150px;">
+```
+
+`style="..."` goes inside your HTML tag.
+
+`width:150px;` makes the image 150 pixels wide.
+
+You can also add other styles like:
+
+```html
+style="border-radius: 10px; margin: 10px; box-shadow: 2px 2px 5px gray;"
+```
+
+### Try It!
+
+Add styles like these to your `about.md` content:
+
+- Change the size of an image  
+- Add space around a heading  
+- Make a heading a different color:
+
+```html
+<h2 style="color: teal;">My Hobbies</h2>
+```
