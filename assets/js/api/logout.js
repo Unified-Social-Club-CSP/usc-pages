@@ -1,10 +1,8 @@
+import { pythonURI, javaURI, fetchOptions } from './config.js';
+
 // logout from both java and python backends
 export async function handleLogout() {
     // import config dynamically since we can't use import in non-module script
-    const configModule = await import('{{site.baseurl}}/assets/js/api/config.js');
-    const fetchOptions = configModule.fetchOptions;
-    const pythonURI = configModule.pythonURI;
-    const javaURI = configModule.javaURI;
 
     // logout from python backend
     try {
@@ -29,6 +27,4 @@ export async function handleLogout() {
         console.error('java logout failed:', e);
     }
 
-    // redirect to login page
-    window.location.href = "{{site.baseurl}}/login";
 }
