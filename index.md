@@ -77,9 +77,6 @@ Hi! My name is [Your Full Name]
     <a href="{{site.baseurl}}/gamify" class="btn" style="background-color: var(--teal);">
        Gamify
     </a>
-    <a href="{{site.baseurl}}/cs-pathway" class="btn" style="background-color: var(--orange);">
-       CS Pathway
-    </a>
 </div>
 
 <br>
