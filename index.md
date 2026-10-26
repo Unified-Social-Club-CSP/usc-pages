@@ -12,8 +12,6 @@ Hi! My name is [Your Full Name]
 
 <!-- markdownlint-disable MD033 MD046 -->
 
-{% include sass-nav.html %}
-
 Hi! My name is [Your Full Name]
 
 ## Learning Buttons
