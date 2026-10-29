@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Login
-permalink: /login
+permalink: /login-ocs/
 search_exclude: true
 show_reading_time: false
 ---

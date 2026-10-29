@@ -1,5 +1,5 @@
 HOST ?= localhost
-PORT ?= 4500
+PORT ?= 4600
 LOG_FILE = /tmp/jekyll$(PORT).log
 PYTHON := venv/bin/python3
 CONVERT_JOBS ?= 4
@@ -432,7 +432,7 @@ watch-rebuild:
 	done
 
 # Development mode: incremental project build, then converts files on save.
-# Runs in background - use 'make stop' to stop, 'tail -f /tmp/jekyll4500.log' to view logs
+# Runs in background - use 'make stop' to stop, 'tail -f /tmp/jekyll4600.log' to view logs
 dev: stop
 	@echo "DEV Projects: $(ACTIVE_DEV_PROJECTS)"
 	@$(MAKE) generate-makefiles

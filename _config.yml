@@ -14,12 +14,12 @@
 #   in _config.yml. It will appear in your document head meta (for Google search
 #   results) and in your feed.xml site description.
 
-title: Friends of Poway Seniors
-description: "Friends of Poway Seniors 2026-27 capstone. Chetan Tiduwar, Aaditya Prem, Kashyap Tubati."
+title: Unified Social Club
+description: "Unified Social Club 2026-27 capstone. Chetan Tiduwar, Aaditya Prem, Kashyap Tubati."
 owner_name: Aaditya Prem
 github_username: rex0dex
-github_repo: "fops-pages"
-baseurl: "/fops-pages"
+github_repo: "usc-pages"
+baseurl: "/usc-pages"
 future: true
 
 # Build settings
@@ -106,18 +106,18 @@ plugins:
 minima:
   skin: dark
   social_links:
-    - { platform: github, user_url: "https://github.com/rex0dex/fops-pages" }
+    - { platform: github, user_url: "https://github.com/rex0dex/usc-pages" }
   nav_pages:
-    - navigation/fops/events.md
-    - navigation/fops/play.md
-    - navigation/fops/accessibility.md
-    - navigation/fops/messages.md
-    - navigation/fops/board.md
-    - navigation/fops/profile.md
+    - navigation/usc/events.md
+    - navigation/usc/play.md
+    - navigation/usc/accessibility.md
+    - navigation/usc/messages.md
+    - navigation/usc/board.md
+    - navigation/usc/profile.md
     - navigation/about.md
-    - navigation/fops/donate.md
+    - navigation/usc/donate.md
 
-# Friends of Poway Seniors runs only the Flask backend (fops-flask), not Spring.
-# Direct messages come from fops-flask's /api/dm routes.
+# Unified Social Club runs only the Flask backend (usc-flask), not Spring.
+# Direct messages come from usc-flask's /api/dm routes.
 spring: false
 dm_backend: python

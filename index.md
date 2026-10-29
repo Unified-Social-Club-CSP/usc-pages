@@ -1,93 +1,90 @@
 ---
 layout: opencs
-title: Friends of Poway Seniors
-description: "Helping Poway seniors stay connected, sharp, and safe."
+title: Unified Social Club
+description: "A free social club for adults with special needs in Poway: games, arts and crafts, karaoke, and sports with friends."
 hide: true
 microblog: true
 ---
 <!-- markdownlint-disable MD033 -->
-<div class="fops-site">
+<div class="usc-site">
 
-{% include fops/header.html %}
+{% include usc/header.html %}
 
-<section class="fops-hero">
-    <div class="fops-container">
-        <h1>Stay connected, sharp, and safe.</h1>
-        <p>Friends of Poway Seniors is a volunteer-run nonprofit supporting seniors and the Poway community through programs, resources, and connection.</p>
+<section class="usc-hero">
+    <div class="usc-container">
+        <h1>Make friends. Have fun.</h1>
+        <p>Unified Social Club is a free club for adults with special needs in Poway. We meet two Fridays a month to play games, make art, sing karaoke, and play sports.</p>
         <div class="ocs__links">
-            <a class="ocs__btn large accent fill" href="{{ '/play/' | relative_url }}">Play &amp; Learn</a>
-            <a class="ocs__btn large accent" href="{{ '/events/' | relative_url }}">This Week's Events</a>
-            <a class="ocs__btn large alert-red fill" href="{{ '/donate/' | relative_url }}">Donate</a>
+            <a class="ocs__btn large accent fill" href="{{ '/events/' | relative_url }}">📅 Club Dates</a>
+            <a class="ocs__btn large accent" href="{{ '/profile/' | relative_url }}">⭐ Tell Us What You Like</a>
+            <a class="ocs__btn large accent" href="{{ '/play/' | relative_url }}">🎲 Play Games</a>
         </div>
     </div>
 </section>
 
-<section class="fops-section fops-section--sage">
-    <div class="fops-container">
-        <h2>What Do We Do?</h2>
-        <p>We host weekly Bingo and lunches, fund city senior programs, and offer online games that help seniors stay sharp, stay social, and spot scams.</p>
+<section class="usc-section usc-section--primary">
+    <div class="usc-container">
+        <h2>Next Club Dates</h2>
+        <p>Fridays at the Mickey Cafagna Community Center, 13094 Civic Center Dr., Poway.</p>
+        <div class="usc-cards usc-dates">
+            <div class="usc-card"><h3>📅 Friday, November 13</h3><p>Unified Social Club</p></div>
+            <div class="usc-card"><h3>📅 Friday, November 20</h3><p>Unified Social Club</p></div>
+            <div class="usc-card"><h3>📅 Friday, December 11</h3><p>Unified Social Club</p></div>
+        </div>
+        <div class="ocs__links" style="margin-top:1.25rem">
+            <a class="ocs__btn large accent" href="{{ '/events/' | relative_url }}" style="background:#fff;color:#1f5f8b !important;border-color:#fff">See All Club Dates</a>
+        </div>
     </div>
 </section>
-<section class="fops-section">
-    <div class="fops-container">
-        <h2>Play &amp; Learn</h2>
-        <p class="fops-section__intro">Big text, big buttons, no time pressure, and a hands-free mode for arthritis.</p>
-        <div class="fops-cards">
-            <div class="fops-card">
-                <h3>Spot the Scam</h3>
-                <p>Two messages side by side. Pick the one you trust, then tap the red flag.</p>
-                <a class="ocs__btn medium accent fill" href="{{ '/scam-trainer/' | relative_url }}">Start Practicing</a>
-            </div>
-            <div class="fops-card">
-                <h3>Bingo</h3>
-                <p>Large-print cards and a caller that reads each number out loud.</p>
+
+<section class="usc-section">
+    <div class="usc-container">
+        <h2>What We Do</h2>
+        <p class="usc-section__intro">Every club date is free. Aides, family members, and service animals are welcome.</p>
+        <div class="usc-cards">
+            <div class="usc-card"><h3>🃏 Board and Card Games</h3><p>Games that are easy to learn and fun to play with friends.</p></div>
+            <div class="usc-card"><h3>🎨 Arts and Crafts</h3><p>Painting, crafts, and more. There is no wrong way to make art.</p></div>
+            <div class="usc-card"><h3>🎤 Karaoke</h3><p>Sing your favorite songs, or cheer for your friends.</p></div>
+            <div class="usc-card"><h3>🏀 Sports</h3><p>Play games with new friends and old friends.</p></div>
+        </div>
+    </div>
+</section>
+
+<section class="usc-section usc-section--accent">
+    <div class="usc-container">
+        <h2>Play and Stay in Touch</h2>
+        <p class="usc-section__intro">Between club dates, you can play with friends and talk to our volunteers here.</p>
+        <div class="usc-cards">
+            <div class="usc-card">
+                <h3>🎱 Bingo</h3>
+                <p>Big-print Bingo with a caller who reads each number out loud.</p>
                 <a class="ocs__btn medium accent fill" href="{{ '/bingo/play/' | relative_url }}">Play Bingo</a>
             </div>
-            <div class="fops-card">
-                <h3>Size It Up</h3>
-                <p>How big is Texas next to France? Resize places from real maps.</p>
-                <a class="ocs__btn medium accent fill" href="{{ '/geography/' | relative_url }}">Play</a>
+            <div class="usc-card">
+                <h3>💬 Ask a Volunteer</h3>
+                <p>Send a private message to a club volunteer.</p>
+                <a class="ocs__btn medium accent fill" href="{{ '/dm/' | relative_url }}">Messages</a>
             </div>
-            <div class="fops-card">
-                <h3>Nod to Select</h3>
-                <p>Arthritis or shaky hands? Play every game with a gentle nod instead of a mouse.</p>
+            <div class="usc-card">
+                <h3>🙂 Easier Ways to Play</h3>
+                <p>Make the words bigger, or play with a nod of your head.</p>
                 <a class="ocs__btn medium accent fill" href="{{ '/accessibility/' | relative_url }}">See How</a>
             </div>
         </div>
     </div>
 </section>
-<section class="fops-section fops-section--honey">
-    <div class="fops-container">
-        <h2>Every Week at Sycamore Hall</h2>
-        <p class="fops-section__intro">Mickey Cafagna Community Center. Doors open at 9:00 AM.</p>
-        <table class="fops-table">
-            <tr><th>Day</th><th>Event</th><th>Card sales</th><th>Game starts</th><th>Lunch</th></tr>
-            <tr><td>Tuesday</td><td>Bingo and Lunch</td><td>9:30 AM</td><td>11:30 AM</td><td>Pre-order by 1:00 PM Monday</td></tr>
-            <tr><td>Sunday</td><td>Bingo</td><td>10:30 AM</td><td>12:30 PM</td><td>Not served on Sundays</td></tr>
-        </table>
-        <div class="ocs__links" style="margin-top:1rem"><a class="ocs__btn medium accent" href="{{ '/bingo/' | relative_url }}">Bingo Prices and Rules</a></div>
-    </div>
-</section>
-<section class="fops-section">
-    <div class="fops-container">
-        <div class="fops-cards">
-            <div class="fops-card fops-card--tint"><h3>Our Mission</h3><p>To support our seniors and marginalized communities by providing volunteer opportunities, access to material provisions, and monetary support for municipal-run senior programming and other community outreach programs.</p></div>
-            <div class="fops-card fops-card--tint"><h3>Our Vision</h3><p>For our seniors, and the community at large, to engage in, benefit from, and enjoy life to its fullest.</p></div>
-        </div>
-    </div>
-</section>
 
-<section class="fops-section fops-section--sage">
-    <div class="fops-container">
-        <h2>Visit Friends of Poway Seniors</h2>
-        <p>Everything on this site supports the real Friends of Poway Seniors. For Bingo, volunteering, the ReRuns Resale Shoppe, and the Senior Birthday Certificate Program, go to their official website or call (858) 668-4689.</p>
+<section class="usc-section usc-section--primary">
+    <div class="usc-container">
+        <h2>Visit Unified Social Club</h2>
+        <p>This site is a student project that supports the real Unified Social Club. To register for a club date, volunteer, or donate, go to their official website.</p>
         <div class="ocs__links">
-            <a class="ocs__btn large accent fill" href="https://www.friendsofpowayseniors.org/" style="background:#fff;color:#3f6b57 !important;border-color:#fff">friendsofpowayseniors.org</a>
-            <a class="ocs__btn large accent" href="tel:+18586684689">Call (858) 668-4689</a>
+            <a class="ocs__btn large accent fill" href="https://www.unifiedsocialclub.com/" style="background:#fff;color:#1f5f8b !important;border-color:#fff">unifiedsocialclub.com</a>
+            <a class="ocs__btn large accent" href="https://www.unifiedsocialclub.com/event-list">Register for a Club Date</a>
         </div>
     </div>
 </section>
 
-{% include fops/footer.html %}
+{% include usc/footer.html %}
 
 </div>
