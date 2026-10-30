@@ -1,17 +1,15 @@
 {%- comment -%}
-  Accessibility row for Unified Social Club pages, under the OCS header
-  (the OCS site-header is the main top bar; our pages are in its nav_pages).
-  Styles: _sass/open-coding/usc-site.scss.
-  Loads assets/js/usc/site.js (text size and Nod to select).
+  Easier-to-use row at the top of Unified Social Club pages, built from OCS buttons.
+  - Text size buttons change the OCS font-size preference (the same setting as the
+    Font Size slider in the OCS dashboard preferences, 12 to 22px).
+  - Nod to select turns on hands-free play (assets/js/usc/access/nod-select.js).
+  Both are wired up by assets/js/usc/site.js through data-size and data-nod-toggle.
+  The chosen button gets the OCS "fill" class and aria-pressed="true".
 {%- endcomment -%}
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
-<div class="usc-access" role="group" aria-label="Accessibility">
-  <div class="usc-container">
-    <span>Text size</span>
-    <button class="ocs__btn small" type="button" data-size="normal" aria-pressed="true">A<span class="sr-only"> normal</span></button>
-    <button class="ocs__btn small" type="button" data-size="large" aria-pressed="false">A<span class="sr-only"> large</span></button>
-    <button class="ocs__btn small" type="button" data-size="xlarge" aria-pressed="false">A<span class="sr-only"> extra large</span></button>
-    <button class="ocs__btn small accent" type="button" data-nod-toggle aria-pressed="false" title="Play hands-free: nod to press the highlighted button">Nod to select</button>
-  </div>
+<div class="ocs__links" role="group" aria-label="Make this site easier to use">
+    <button class="ocs__btn large accent fill" type="button" data-size="normal" aria-pressed="true">A Normal Text</button>
+    <button class="ocs__btn large accent" type="button" data-size="large" aria-pressed="false">A+ Bigger Text</button>
+    <button class="ocs__btn large accent" type="button" data-size="xlarge" aria-pressed="false">A++ Biggest Text</button>
+    <button class="ocs__btn large alert-green" type="button" data-nod-toggle aria-pressed="false">🙂 Nod to Select</button>
 </div>
 <script type="module" src="{{ '/assets/js/usc/site.js' | relative_url }}"></script>

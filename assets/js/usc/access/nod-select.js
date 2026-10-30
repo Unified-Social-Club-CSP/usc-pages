@@ -132,7 +132,7 @@ function loop() {
     } else if (now - lastSeen > 1500) {
       status("We can't see your face. Sit so the camera can see you.");
     }
-    panel.querySelector('[data-nod-meter]').style.width = `${Math.round(counter.progress() * 100)}%`;
+    panel.querySelector('[data-nod-meter]').value = Math.round(counter.progress() * 100);
   }
 
   // Move the highlight on, but never in the middle of a nod.
@@ -143,23 +143,25 @@ function loop() {
 }
 
 function buildPanel(onOff) {
-  panel = el('aside', 'nod-panel');
+  // An OCS card pinned to the corner (position: usc-site.scss), with OCS buttons and fields.
+  panel = el('aside', 'ocs__card nod-panel');
   panel.setAttribute('aria-label', 'Nod to select');
   panel.innerHTML = `
-    <div class="nod-panel-head">
+    <div class="ocs__card-header">
       <strong>Nod to select</strong>
-      <button type="button" class="nod-off" data-nod-off>Turn off</button>
+      <button type="button" class="ocs__btn small alert-red" data-nod-off>Turn off</button>
     </div>
     <video playsinline muted></video>
-    <div class="nod-meter" aria-hidden="true"><div data-nod-meter></div></div>
-    <p class="nod-status" data-nod-status role="status" aria-live="polite">Starting the camera…</p>
-    <label class="nod-speed">Highlight speed
-      <select data-nod-speed>
+    <progress max="100" value="0" aria-hidden="true" data-nod-meter></progress>
+    <p data-nod-status role="status" aria-live="polite">Starting the camera…</p>
+    <div class="ocs__field">
+      <label class="ocs__label" for="nod-speed">Highlight speed</label>
+      <select class="ocs__input" id="nod-speed" data-nod-speed>
         <option value="slow">Slow</option>
         <option value="medium">Medium</option>
         <option value="quick">Quick</option>
       </select>
-    </label>`;
+    </div>`;
   document.body.appendChild(panel);
   video = panel.querySelector('video');
 

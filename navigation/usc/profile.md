@@ -7,38 +7,39 @@ hide: true
 microblog: true
 ---
 <!-- markdownlint-disable MD033 -->
-<div class="usc-site">
-
+{%- comment -%}
+  Interest survey. Built only from shared OCS grammar (_sass/open-coding/elements):
+  each answer is an OCS pill button that fills when picked, like the Jeopardy team picker.
+  Logic: assets/js/usc/profile.js (saves to usc-flask /api/usc/profile/interests).
+{%- endcomment -%}
 {% include usc/header.html %}
 
-<section class="usc-page-title">
-    <div class="usc-container">
-        <h1>Your Profile</h1>
-        <p>Tell us what you're interested in, and we'll put the games and events you care about first.</p>
-    </div>
-</section>
+<div class="ocs__container">
+<div class="ocs__badge">Your Interests</div>
+<h1>Your Profile</h1>
+<p class="ocs__description">Tell us what you're interested in, and we'll put the games and events you care about first.</p>
 
-<section class="usc-section">
-    <div class="usc-container">
-<div class="usc-card usc-card--tint" data-profile-status style="margin-bottom:1rem">
-  <p data-status-text>Checking whether you're signed in…</p>
+<div class="ocs__callout" data-profile-status>
+<span data-status-text>Checking whether you're signed in…</span>
 </div>
-<form class="usc-card" id="interest-survey" novalidate>
-  <h2>Your interests</h2>
-  <p class="hint">Six quick questions. Tap your answers; there's no typing. You can change them any time.</p>
-  <div data-questions></div>
-  <p class="form-message" role="status" aria-live="polite"></p>
-  <button class="ocs__btn large accent fill" type="submit">Save My Answers</button>
+
+<form id="interest-survey" class="ocs__card" data-nod-scope novalidate>
+<h2 class="ocs__section-title">Your interests</h2>
+<p class="ocs__lead">Six quick questions. Tap your answers; there's no typing. You can change them any time.</p>
+<div data-questions></div>
+<p role="status" aria-live="polite" data-form-message></p>
+<div class="ocs__links">
+<button class="ocs__btn large alert-green fill" type="submit">Save My Answers</button>
+</div>
 </form>
-<div class="usc-card" data-results hidden style="margin-top:1rem">
-  <h2>Picked for you</h2>
-  <p class="hint">Based on your answers.</p>
-  <div class="usc-cards" data-recommendations></div>
+
+<div class="ocs__card" data-results hidden>
+<h2 class="ocs__section-title">Picked for you</h2>
+<p class="ocs__lead">Based on your answers.</p>
+<div class="ocs__grid ocs__grid--card" data-recommendations></div>
 </div>
-    </div>
-</section>
+</div>
+
 <script type="module" src="{{ '/assets/js/usc/profile.js' | relative_url }}"></script>
 
 {% include usc/footer.html %}
-
-</div>

@@ -13,9 +13,7 @@ microblog: true
   classes or styles, so it follows the member's OCS theme.
   Logic: assets/js/usc/trivia.js. Questions: assets/js/usc/trivia-data.js.
 {%- endcomment -%}
-<div class="usc-site">
 {% include usc/header.html %}
-</div>
 
 <div class="ocs__container">
 <div class="ocs__badge">Solo Practice</div>
@@ -97,6 +95,4 @@ microblog: true
 
 <script type="module" src="{{ '/assets/js/usc/trivia.js' | relative_url }}"></script>
 
-<div class="usc-site">
 {% include usc/footer.html %}
-</div>

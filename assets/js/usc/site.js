@@ -2,26 +2,45 @@
 import { baseurl } from '../api/config.js';
 import { currentMember } from './account.js';
 
-// ---- Text size (saved between visits) ----
-// Sets --usc-size, which .usc-site uses as its base font size.
-const SIZE_KEY = 'usc-text-size';
-const SIZES = { normal: '20px', large: '23px', xlarge: '26px' };
+// ---- Text size: the OCS font-size preference ----
+// OCS keeps each visitor's theme in localStorage 'sitePreferences' and applies it on
+// every page (assets/js/user-preferences.js). The dashboard's Font Size slider
+// (12 to 22px) writes the same "size" field; these buttons only change that field.
+// "Normal" removes it again, so the page goes back to the stock OCS text size.
+const PREF_KEY = 'sitePreferences';
+const SIZES = { large: 18, xlarge: 22 };
 const sizeButtons = document.querySelectorAll('[data-size]');
 
-function applySize(size) {
-  document.documentElement.style.setProperty('--usc-size', SIZES[size] || SIZES.normal);
-  sizeButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.size === size)));
+function readPrefs() {
+  try { return JSON.parse(localStorage.getItem(PREF_KEY)) || {}; } catch (e) { return {}; }
 }
 
-let savedSize = 'normal';
-try { savedSize = localStorage.getItem(SIZE_KEY) || 'normal'; } catch (e) { /* storage blocked */ }
-applySize(savedSize);
-
-sizeButtons.forEach((button) => {
-  button.addEventListener('click', () => {
-    applySize(button.dataset.size);
-    try { localStorage.setItem(SIZE_KEY, button.dataset.size); } catch (e) { /* storage blocked */ }
+// The chosen button is a filled OCS button (and aria-pressed for screen readers).
+function showSize(px) {
+  const name = Object.keys(SIZES).filter((key) => SIZES[key] <= px).pop() || 'normal';
+  sizeButtons.forEach((b) => {
+    const on = b.dataset.size === name;
+    b.classList.toggle('fill', on);
+    b.setAttribute('aria-pressed', String(on));
   });
+}
+
+function setSize(name) {
+  const prefs = { ...readPrefs() };
+  if (SIZES[name]) prefs.size = SIZES[name]; else delete prefs.size;
+  const empty = !Object.keys(prefs).length;
+  try {
+    if (empty) localStorage.removeItem(PREF_KEY); else localStorage.setItem(PREF_KEY, JSON.stringify(prefs));
+    localStorage.removeItem('preferencesReset');
+  } catch (e) { /* storage blocked: still change this page */ }
+  if (empty) window.SitePreferences?.resetPreferences();
+  else window.SitePreferences?.applyPreferences(prefs);
+  showSize(prefs.size || 0);
+}
+
+showSize(Number(readPrefs().size) || 0);
+sizeButtons.forEach((button) => {
+  button.addEventListener('click', () => setSize(button.dataset.size));
 });
 
 // ---- Nod to select (hands-free play), remembered between pages ----
@@ -30,8 +49,15 @@ const NOD_KEY = 'usc-nod-select';
 const nodButtons = document.querySelectorAll('[data-nod-toggle]');
 let nodModule = null;
 
+function pressNod(on) {
+  nodButtons.forEach((b) => {
+    b.classList.toggle('fill', on);
+    b.setAttribute('aria-pressed', String(on));
+  });
+}
+
 function showNod(on) {
-  nodButtons.forEach((b) => b.setAttribute('aria-pressed', String(on)));
+  pressNod(on);
   try { localStorage.setItem(NOD_KEY, on ? 'on' : 'off'); } catch (e) { /* storage blocked */ }
 }
 
@@ -40,7 +66,7 @@ async function setNod(on) {
   if (!on) { nodModule?.stop(); return; }
   nodModule = nodModule || await import('./access/nod-select.js');
   const started = await nodModule.start(() => setNod(false));
-  if (!started) nodButtons.forEach((b) => b.setAttribute('aria-pressed', 'false'));
+  if (!started) showNod(false); // camera refused: stay off on the next page too
 }
 
 nodButtons.forEach((button) => {

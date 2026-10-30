@@ -11,6 +11,7 @@ function showTab(name) {
   Object.keys(tabs).forEach((key) => {
     const active = key === name;
     tabs[key].setAttribute('aria-selected', String(active));
+    tabs[key].classList.toggle('fill', active); // the open tab is a filled OCS button
     panels[key].hidden = !active;
   });
   panels[name].querySelector('input').focus();
@@ -18,10 +19,10 @@ function showTab(name) {
 tabs.signin.addEventListener('click', () => showTab('signin'));
 tabs.create.addEventListener('click', () => showTab('create'));
 
+// Messages start with ✅ or ⚠️, so they never rely on color.
 function say(form, text, kind) {
-  const box = form.querySelector('.form-message');
-  box.textContent = text;
-  box.className = `form-message ${kind || ''}`;
+  const icon = { ok: '✅ ', error: '⚠️ ' }[kind] || '';
+  form.querySelector('[data-form-message]').textContent = `${icon}${text}`;
 }
 
 async function readMessage(response, fallback) {

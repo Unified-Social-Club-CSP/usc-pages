@@ -12,9 +12,7 @@ microblog: true
   (_sass/open-coding/elements): no page-specific classes or styles, so it follows the
   member's OCS theme. Logic: assets/js/usc/jeopardy.js. Clues: assets/js/usc/jeopardy-data.js.
 {%- endcomment -%}
-<div class="usc-site">
 {% include usc/header.html %}
-</div>
 
 <div class="ocs__container">
 <div class="ocs__badge">Team Game</div>
@@ -107,6 +105,4 @@ microblog: true
 
 <script type="module" src="{{ '/assets/js/usc/jeopardy.js' | relative_url }}"></script>
 
-<div class="usc-site">
 {% include usc/footer.html %}
-</div>
