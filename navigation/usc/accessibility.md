@@ -36,6 +36,8 @@ microblog: true
         <table class="usc-table">
             <tr><th>Game</th><th>What a nod does</th></tr>
             <tr><td><a href="{{ '/bingo/play/' | relative_url }}">Bingo</a></td><td>Numbers are marked for you; nod on BINGO! when you have a line</td></tr>
+            <tr><td><a href="{{ '/trivia/' | relative_url }}">Trivia</a></td><td>The outline moves over the 4 answers; nod on the one you pick (turn the timer off for more time)</td></tr>
+            <tr><td><a href="{{ '/jeopardy/' | relative_url }}">Jeopardy</a></td><td>Picks a square on the board, then an answer</td></tr>
             <tr><td><a href="{{ '/profile/' | relative_url }}">Interest survey</a></td><td>Picks your answers, then saves them</td></tr>
         </table>
     </div>

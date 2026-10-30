@@ -27,13 +27,19 @@ microblog: true
                 <a class="ocs__btn medium accent fill" href="{{ '/bingo/play/' | relative_url }}">Play Bingo</a>
             </div>
             <div class="usc-card">
+                <h3>❓ Trivia</h3>
+                <p>Questions about club life with 4 big answer buttons. Practice by yourself, with or without a timer.</p>
+                <a class="ocs__btn medium accent fill" href="{{ '/trivia/' | relative_url }}">Play Trivia</a>
+            </div>
+            <div class="usc-card">
+                <h3>🏆 Jeopardy</h3>
+                <p>A team game for 2 to 4 teams. Pick a square, then choose the right picture.</p>
+                <a class="ocs__btn medium accent fill" href="{{ '/jeopardy/' | relative_url }}">Play Jeopardy</a>
+            </div>
+            <div class="usc-card">
                 <h3>🙂 Nod to Select</h3>
                 <p>Play with a nod of your head instead of a mouse.</p>
                 <a class="ocs__btn medium accent fill" href="{{ '/accessibility/' | relative_url }}">See How</a>
-            </div>
-            <div class="usc-card">
-                <h3>🃏 More Games Coming</h3>
-                <p>Card and board games like the ones we play at club.</p>
             </div>
         </div>
     </div>

@@ -61,6 +61,16 @@ microblog: true
                 <a class="ocs__btn medium accent fill" href="{{ '/bingo/play/' | relative_url }}">Play Bingo</a>
             </div>
             <div class="usc-card">
+                <h3>❓ Trivia</h3>
+                <p>Questions about club life with 4 big answer buttons.</p>
+                <a class="ocs__btn medium accent fill" href="{{ '/trivia/' | relative_url }}">Play Trivia</a>
+            </div>
+            <div class="usc-card">
+                <h3>🏆 Jeopardy</h3>
+                <p>A team game: pick a square, then choose the right picture.</p>
+                <a class="ocs__btn medium accent fill" href="{{ '/jeopardy/' | relative_url }}">Play Jeopardy</a>
+            </div>
+            <div class="usc-card">
                 <h3>💬 Ask a Volunteer</h3>
                 <p>Send a private message to a club volunteer.</p>
                 <a class="ocs__btn medium accent fill" href="{{ '/dm/' | relative_url }}">Messages</a>
