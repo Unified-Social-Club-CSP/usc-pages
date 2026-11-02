@@ -36,7 +36,7 @@ microblog: true
 </div>
 <h2 class="ocs__section-title">Settings</h2>
 <div class="ocs__links">
-<button class="ocs__btn large accent" type="button" data-action="voice" aria-pressed="true">🔊 Read Clues Out Loud: On</button>
+<button class="ocs__btn large accent" type="button" data-action="voice" aria-pressed="false">🔊 Read Clues Out Loud: Off</button>
 </div>
 <h2 class="ocs__section-title">Ready?</h2>
 <div class="ocs__links">

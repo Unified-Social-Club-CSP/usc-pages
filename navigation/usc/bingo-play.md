@@ -55,7 +55,7 @@ microblog: true
 <div class="ocs__links">
 <button class="ocs__btn large alert-green fill" type="button" data-action="bingo">BINGO!</button>
 <button class="ocs__btn large accent" type="button" data-action="pause">Pause</button>
-<button class="ocs__btn large accent" type="button" data-action="voice" aria-pressed="true">🔊 Voice: On</button>
+<button class="ocs__btn large accent" type="button" data-action="voice" aria-pressed="false">🔊 Voice: Off</button>
 <button class="ocs__btn large accent" type="button" data-action="automark" aria-pressed="true">✓ Auto-mark: On</button>
 </div>
 </div>

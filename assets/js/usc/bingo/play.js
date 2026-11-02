@@ -4,6 +4,7 @@
 // accent grid cell with a ✓, and the winning line gets a ⭐, so it never relies on color.
 import { LETTERS, FREE, callOrder, makeCard, winningLines, letterFor, spoken } from './engine.js';
 import { loadProgress, saveProgress } from '../progress.js';
+import { canSpeak, speak, stopSpeaking } from '../voice.js';
 
 const app = document.getElementById('bingo-app');
 const $ = (sel) => app.querySelector(sel);
@@ -14,7 +15,7 @@ const game = {
   count: 0,            // balls called so far
   marked: new Set(),   // numbers the player has marked
   autoMark: true,
-  voice: 'speechSynthesis' in window,
+  voice: false,        // the caller's voice starts Off; the button turns it on
   paused: false,
   over: false,
   timer: null,
@@ -122,13 +123,7 @@ function highlightLines(lines) {
 // ---------- Calling ----------
 
 function say(text) {
-  if (!game.voice) return;
-  try {
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.rate = 0.85;
-    window.speechSynthesis.speak(u);
-  } catch (e) { /* speech not available */ }
+  if (game.voice) speak(text); // shared voice: assets/js/usc/voice.js
 }
 
 function showCalls(announce) {
@@ -214,7 +209,7 @@ app.addEventListener('click', (event) => {
   if (action === 'bingo') claimBingo();
   if (action === 'quit') {
     clearInterval(game.timer);
-    try { window.speechSynthesis.cancel(); } catch (e) { /* no speech */ }
+    stopSpeaking();
     show('lobby');
   }
   if (action === 'pause') {
@@ -226,7 +221,7 @@ app.addEventListener('click', (event) => {
     game.voice = !game.voice;
     button.textContent = `🔊 Voice: ${game.voice ? 'On' : 'Off'}`;
     button.setAttribute('aria-pressed', String(game.voice));
-    if (!game.voice) { try { window.speechSynthesis.cancel(); } catch (e) { /* no speech */ } }
+    if (!game.voice) stopSpeaking();
   }
   if (action === 'automark') {
     game.autoMark = !game.autoMark;
@@ -238,7 +233,7 @@ app.addEventListener('click', (event) => {
 
 // ---------- Start up ----------
 
-if (!game.voice) {
+if (!canSpeak) {
   const voiceButton = $('[data-action="voice"]');
   voiceButton.textContent = '🔊 Voice: Not available';
   voiceButton.disabled = true;

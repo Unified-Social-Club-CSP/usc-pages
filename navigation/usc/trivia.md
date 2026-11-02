@@ -27,7 +27,7 @@ microblog: true
 <h2 class="ocs__section-title">Settings</h2>
 <div class="ocs__links">
 <button class="ocs__btn large accent" type="button" data-action="timer" aria-pressed="true">⏱️ Timer: On (20 seconds)</button>
-<button class="ocs__btn large accent" type="button" data-action="voice" aria-pressed="true">🔊 Read Questions Out Loud: On</button>
+<button class="ocs__btn large accent" type="button" data-action="voice" aria-pressed="false">🔊 Read Questions Out Loud: Off</button>
 </div>
 <h2 class="ocs__section-title">Ready? 10 questions</h2>
 <div class="ocs__links">

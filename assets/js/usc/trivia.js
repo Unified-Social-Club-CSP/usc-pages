@@ -1,6 +1,6 @@
 // Club Trivia: solo practice, one question at a time, Kahoot style.
 // Each of the 4 answers has its own color AND shape (triangle, diamond, circle,
-// square) and a picture, so nobody has to tell colors apart. The timer can be
+// square), so nobody has to tell colors apart. The timer can be
 // turned off. The rules come first and never touch the page, so they can be
 // tested on their own; the live club-night rooms will reuse them later.
 // The page is built only from OCS classes: the four answer colors are the OCS
@@ -9,6 +9,7 @@ import { TRIVIA_QUESTIONS } from './trivia-data.js';
 import { shuffle } from './bingo/engine.js';
 import { loadProgress, saveProgress } from './progress.js';
 import { currentMember } from './account.js';
+import { canSpeak, speak, stopSpeaking } from './voice.js';
 
 export const POINTS = 100;      // points for each right answer
 export const TIME_LIMIT = 20;   // seconds per question when the timer is on
@@ -61,8 +62,8 @@ const game = {
   timerOn: true,
   timeLeft: TIME_LIMIT,
   timer: null,
-  canSpeak: 'speechSynthesis' in globalThis,
-  voice: 'speechSynthesis' in globalThis,
+  canSpeak,
+  voice: false,         // read-aloud starts Off; the button turns it on
 };
 
 let stats = { played: 0, bestScore: 0, bestStreak: 0 };
@@ -79,19 +80,7 @@ function show(screen) {
   app.scrollIntoView({ block: 'start', behavior: 'smooth' });
 }
 
-function say(text) {
-  if (!game.canSpeak) return;
-  try {
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.rate = 0.85;
-    window.speechSynthesis.speak(u);
-  } catch (e) { /* speech not available */ }
-}
-
-function stopSpeaking() {
-  try { window.speechSynthesis.cancel(); } catch (e) { /* no speech */ }
-}
+const say = speak; // shared voice: assets/js/usc/voice.js
 
 function showStats() {
   const text = stats.played
@@ -145,7 +134,7 @@ function showQuestion() {
   // Kahoot-style tiles: shape, picture, and words on a filled OCS button.
   $('[data-answers]').replaceChildren(...q.choices.map((choice, i) => {
     const shape = SHAPES[i];
-    const button = el('button', `ocs__btn large ${shape.tone} fill`, `${shape.symbol} ${choice.emoji} ${choice.label}`);
+    const button = el('button', `ocs__btn large ${shape.tone} fill`, `${shape.symbol} ${choice.label}`);
     button.type = 'button';
     button.dataset.action = 'answer';
     button.dataset.choice = i;
@@ -178,8 +167,8 @@ function answer(choiceIndex) {
   });
 
   const right = q.choices[q.answer];
-  let message = `Nice try! The answer was ${right.emoji} ${right.label}.`;
-  if (choiceIndex === -1) message = `Time's up! The answer was ${right.emoji} ${right.label}.`;
+  let message = `Nice try! The answer was ${SHAPES[q.answer].symbol} ${right.label}.`;
+  if (choiceIndex === -1) message = `Time's up! The answer was ${SHAPES[q.answer].symbol} ${right.label}.`;
   if (game.run.correct) {
     message = game.run.streak >= 3
       ? `Yes! +${POINTS} points. ${game.run.streak} in a row! 🔥`

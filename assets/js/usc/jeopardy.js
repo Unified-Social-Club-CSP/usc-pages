@@ -7,6 +7,7 @@
 import { JEOPARDY_CATEGORIES } from './jeopardy-data.js';
 import { loadProgress, saveProgress } from './progress.js';
 import { currentMember } from './account.js';
+import { canSpeak, speak, stopSpeaking } from './voice.js';
 import { EDITOR_ROLES, getBoard, listBoards, recentResults, saveResult } from './jeopardy-api.js';
 
 export const MIN_TEAMS = 2;
@@ -69,8 +70,8 @@ const game = {
   used: new Set(),      // squares already played, as "col-row"
   clue: null,           // { col, row } of the open clue
   answered: false,
-  canSpeak: 'speechSynthesis' in globalThis,
-  voice: 'speechSynthesis' in globalThis,
+  canSpeak,
+  voice: false,         // read-aloud starts Off; the button turns it on
 };
 
 let stats = { played: 0, highScore: 0 };
@@ -87,19 +88,7 @@ function show(screen) {
   app.scrollIntoView({ block: 'start', behavior: 'smooth' });
 }
 
-function say(text) {
-  if (!game.canSpeak) return;
-  try {
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.rate = 0.85;
-    window.speechSynthesis.speak(u);
-  } catch (e) { /* speech not available */ }
-}
-
-function stopSpeaking() {
-  try { window.speechSynthesis.cancel(); } catch (e) { /* no speech */ }
-}
+const say = speak; // shared voice: assets/js/usc/voice.js
 
 function showStats() {
   const text = stats.played ? `Games played: ${stats.played} · Highest team score: ${stats.highScore}` : '';
