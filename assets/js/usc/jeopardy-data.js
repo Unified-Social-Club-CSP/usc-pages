@@ -1,7 +1,8 @@
 // Club Jeopardy board: 6 categories from club life, 3 clues each.
 // Easier clues are worth fewer points. Every clue has 3 picture answers and
-// `answer` is the index of the right one. A volunteer editor (or the backend
-// later) can replace this list; the game reads whatever is here.
+// `answer` is the index of the right one. This is the offline board: the club
+// server (usc-flask) starts with the same Club Life board, and volunteers add
+// more in the board editor (/jeopardy/editor/).
 
 export const JEOPARDY_CATEGORIES = [
   {

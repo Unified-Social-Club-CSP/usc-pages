@@ -7,6 +7,7 @@
 import { JEOPARDY_CATEGORIES } from './jeopardy-data.js';
 import { loadProgress, saveProgress } from './progress.js';
 import { currentMember } from './account.js';
+import { EDITOR_ROLES, getBoard, listBoards, recentResults, saveResult } from './jeopardy-api.js';
 
 export const MIN_TEAMS = 2;
 export const MAX_TEAMS = 4;
@@ -61,6 +62,7 @@ const $ = (sel) => app.querySelector(sel);
 
 const game = {
   categories: JEOPARDY_CATEGORIES,
+  boardId: null,        // a board from the club server, or null for the offline board
   teamCount: 2,
   teams: [],
   turn: 0,              // index of the team whose turn it is
@@ -221,9 +223,71 @@ function answer(choiceIndex) {
   next.focus();
 }
 
+// ---------- Boards from the club server ----------
+
+// One button per board. If the server can't be reached, the offline Club Life
+// board (jeopardy-data.js) is the only choice, so the game always works.
+async function loadBoards() {
+  const { ok, data } = await listBoards();
+  const boards = ok && Array.isArray(data) && data.length ? data : [];
+  const buttons = boards.map((board) => {
+    const button = el('button', 'ocs__btn large pill accent', `${board.name} · ${board.level === 'harder' ? 'Harder' : 'Easy'}`);
+    button.type = 'button';
+    button.dataset.action = 'board';
+    button.dataset.id = board.id;
+    return button;
+  });
+  if (!buttons.length) {
+    const offline = el('button', 'ocs__btn large pill accent', 'Club Life · Easy (offline)');
+    offline.type = 'button';
+    offline.dataset.action = 'board';
+    offline.dataset.id = '';
+    buttons.push(offline);
+  }
+  $('[data-boards]').replaceChildren(...buttons);
+  setBoard(buttons[0].dataset.id);
+}
+
+// The chosen board is a filled button (and aria-pressed for screen readers).
+function setBoard(id) {
+  game.boardId = id ? Number(id) : null;
+  app.querySelectorAll('[data-action="board"]').forEach((b) => {
+    const on = b.dataset.id === String(id);
+    b.classList.toggle('fill', on);
+    b.setAttribute('aria-pressed', String(on));
+  });
+}
+
+// Saves the finished game (signed-in members only), then shows the last games
+// played on this board. The server checks the scores before keeping them.
+async function saveAndShowRecent(member) {
+  if (!game.boardId) return;
+  if (member) await saveResult(game.boardId, game.teams.map(({ name, score }) => ({ name, score })));
+  const { ok, data } = await recentResults(game.boardId);
+  const box = $('[data-recent]');
+  box.hidden = !(ok && data.length);
+  if (box.hidden) return;
+  $('[data-recent-rows]').replaceChildren(...data.map((result) => {
+    const row = el('tr');
+    const when = result.played_at ? new Date(`${result.played_at}Z`).toLocaleDateString() : '';
+    row.append(
+      el('td', '', result.winners.join(' and ')),
+      el('td', '', result.teams.map((t) => `${t.name}: ${t.score}`).join(', ')),
+      el('td', '', when),
+    );
+    return row;
+  }));
+}
+
 // ---------- Start and finish ----------
 
-function startGame() {
+async function startGame() {
+  game.categories = JEOPARDY_CATEGORIES;
+  if (game.boardId) {
+    const { ok, data } = await getBoard(game.boardId);
+    if (ok) game.categories = data.categories;
+    else game.boardId = null; // board gone or server down: play the offline board
+  }
   Object.assign(game, { teams: makeTeams(game.teamCount), turn: 0, used: new Set(), clue: null });
   showBoard();
 }
@@ -247,6 +311,8 @@ function finish() {
   stats.highScore = Math.max(stats.highScore, top[0].score);
   saveProgress('jeopardy', stats);
   showStats();
+  $('[data-recent]').hidden = true;
+  currentMember().then(saveAndShowRecent);
   show('final');
   if (game.voice) say(`${headline} Great job, everybody!`);
 }
@@ -269,6 +335,7 @@ function onClick(event) {
   const action = button.dataset.action;
 
   if (action === 'teams') setTeamCount(Number(button.dataset.count));
+  if (action === 'board') setBoard(button.dataset.id);
   if (action === 'start' || action === 'again') startGame();
   if (action === 'pick') pick(Number(button.dataset.col), Number(button.dataset.row));
   if (action === 'answer') answer(Number(button.dataset.choice));
@@ -291,6 +358,7 @@ function onClick(event) {
 if (app) {
   app.addEventListener('click', onClick);
   setTeamCount(game.teamCount);
+  loadBoards();
 
   // Without speech, say so on the buttons instead of hiding them.
   if (!game.canSpeak) {
@@ -310,5 +378,6 @@ if (app) {
     $('[data-account]').textContent = member
       ? 'You are signed in, so your games are saved to your account.'
       : 'Sign in to save your games on any computer.';
+    $('[data-editor-link]').hidden = !(member && member.active && EDITOR_ROLES.includes(member.role));
   });
 }

@@ -10,7 +10,8 @@ microblog: true
 {%- comment -%}
   Club Jeopardy (owner: Aaditya). The game is built only from shared OCS grammar
   (_sass/open-coding/elements): no page-specific classes or styles, so it follows the
-  member's OCS theme. Logic: assets/js/usc/jeopardy.js. Clues: assets/js/usc/jeopardy-data.js.
+  member's OCS theme. Logic: assets/js/usc/jeopardy.js. Boards come from usc-flask (api/usc_jeopardy.py)
+  through assets/js/usc/jeopardy-api.js; assets/js/usc/jeopardy-data.js is the offline board.
 {%- endcomment -%}
 {% include usc/header.html %}
 
@@ -21,8 +22,12 @@ microblog: true
 
 <div id="jeopardy-app" class="ocs__card" data-nod-scope data-nod-targets="[data-action]">
 
-<!-- Start screen: how many teams -->
+<!-- Start screen: which board and how many teams -->
 <div data-screen="setup">
+<h2 class="ocs__section-title">Pick a board</h2>
+<div class="ocs__links" role="group" aria-label="Jeopardy boards" data-boards>
+<span>Loading boards…</span>
+</div>
 <h2 class="ocs__section-title">How many teams?</h2>
 <div class="ocs__links" role="group" aria-label="Number of teams">
 <button class="ocs__btn large pill accent fill" type="button" data-action="teams" data-count="2" aria-pressed="true">2 Teams</button>
@@ -38,6 +43,9 @@ microblog: true
 <button class="ocs__btn large alert-green fill" type="button" data-action="start">▶ Start Jeopardy</button>
 </div>
 <div class="ocs__callout"><span data-account>Sign in to save your games on any computer.</span> <span data-stats></span></div>
+<div class="ocs__links" data-editor-link hidden>
+<a class="ocs__btn medium" href="{{ '/jeopardy/editor/' | relative_url }}" data-nod-skip>✏️ Edit Boards (volunteers)</a>
+</div>
 </div>
 
 <!-- The board -->
@@ -88,6 +96,15 @@ microblog: true
 </div>
 </div>
 <div class="ocs__callout" data-stats></div>
+<div data-recent hidden>
+<h3 class="ocs__section-title">Recent games on this board</h3>
+<div class="ocs__table-wrap">
+<table class="ocs__table">
+<thead><tr><th>Winner</th><th>Scores</th><th>Played</th></tr></thead>
+<tbody data-recent-rows></tbody>
+</table>
+</div>
+</div>
 </div>
 
 </div>
